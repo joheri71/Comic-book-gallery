@@ -12,6 +12,19 @@ namespace ComicBookGallery.Controllers
         //Den letar i Viewmappen och sökvägen blir ComicBooks/Detail
         public ActionResult Detail()
         {
+            ViewBag.SeriesTitle = "The amzing Spider-Man";
+            ViewBag.IssueNumber = 700;
+            ViewBag.Description = "Final issue! Witness the final hours of Doctor Octopus life and his one, last, great act of revenge!" +
+                              "Even if Spider-Man survives <strong>will Peter Parker?</strong>";
+            ViewBag.Artists = new string[]
+            {
+                "Script: Dan Slott",
+                "Pencils: Humberto Ramos",
+                "Inks: Victor Olazaba",
+                "Colors: Edgar Delgado",
+                "Letters: Chris Eliopoulos"
+            };
+        
             return View();   
         }
     }
