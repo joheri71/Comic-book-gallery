@@ -1,29 +1,58 @@
 ﻿@model ComicBookGallery.Models.ComicBook
 @{
+    //Vilken layoutfil som ska användas. Layout tilldelas sökvägen.
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //Title är det som står på "fliken", får värdet av propertyn DisplayText från Modellen ComicBook
     ViewBag.Title = Model.DisplayText;
-    
+
 }
 
+<h2>@Model.DisplayText</h2>
 
-<h1>The amzing Spider-Man</h1>
-<h2>Issue #@Model.IssueNumber</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            <h5><label>Series Title:</label> @Model.SeriesTitle</h5>
+            <h5><label>Issue #:</label> @Model.IssueNumber</h5>
 
-<h5>Description:</h5>
-<div>@Html.Raw(Model.DescriptionHtml)</div>
+            @*Ibland måste man sätta paranteser runt hela uttrycket. I detta fall p.g.a mellanslaget
+            mellan Favorite och frågetecknet*@
 
-@if(Model.Artists.Length > 0)
-{
-    <h5>Artists:</h5>
-    <div>
-        <ul>
-            @foreach (var artist in Model.Artists)
-        {
-                <li>@artist.Role: @artist.Name</li>
+            <h5><label>Favorite:</label> @(Model.Favorite ?"Yes": "No")</h5>
+            @if (Model.Artists.Length > 0)
+            {
+                <h5>Artists:</h5>
+                <div>
+                    <ul>
+                        @foreach (var artist in Model.Artists)
+                        {
+                            <li>@artist.Role: @artist.Name</li>
+                        }
+                    </ul>
+                </div>
             }
-        </ul>
+        </div>
+        <h5>Description:</h5>
+        <div>@Html.Raw(Model.DescriptionHtml)</div>
+
     </div>
-        }
+    <div class="col-md-6">
+        <img src="/Images/@Model.CoverImageFileName"
+             alt="@Model.DisplayText" class="img-responsive" />
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  

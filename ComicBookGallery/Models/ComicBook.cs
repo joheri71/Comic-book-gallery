@@ -21,8 +21,12 @@ namespace ComicBookGallery.Models
 
         public string CoverImageFileName
         {
-            get { return SeriesTitle.Replace(" ", "-")
-                    .ToLower() + " " + IssueNumber + ".jpg"; }
+            get
+            {
+                return SeriesTitle.Replace(" ", "-").ToLower() + "-" + IssueNumber + ".jpg";
+
+                //returnerar detta ---> "the-amazing-spider-man-700.jpg"
+            }
         }
     }
 }
