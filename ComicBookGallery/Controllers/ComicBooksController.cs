@@ -17,6 +17,13 @@ namespace ComicBookGallery.Controllers
         {
             _comicBookRepository = new ComicBookRepository();
         }
+
+        public ActionResult Index()
+        {
+            var comicBooks = _comicBookRepository.GetComicBooks();
+            return View(comicBooks);
+        }
+
         //Returnerar en view som har en url innehållande ComicBooks och Detail. 
         //Den letar i Viewmappen och sökvägen blir ComicBooks/Detail
         public ActionResult Detail(int? id)
