@@ -3,48 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ComicBookGallery.Data;
 using ComicBookGallery.Models;
 
 namespace ComicBookGallery.Controllers
 {
     public class ComicBooksController : Controller
     {
+        private ComicBookRepository _comicBookRepository = null;
+
+        //Konstruktorn instansierar ett objekt av klasses ComicBookRepository
+        public ComicBooksController()
+        {
+            _comicBookRepository = new ComicBookRepository();
+        }
         //Returnerar en view som har en url innehållande ComicBooks och Detail. 
         //Den letar i Viewmappen och sökvägen blir ComicBooks/Detail
-        public ActionResult Detail()
+        public ActionResult Detail(int? id)
         {
-            //Instansierar ett objekt av klassen ComicBook och lägger till ett antal Artists i propertyn Artists
-            //som är en array av Artists
-            var comicBook = new ComicBook()
+            if (id == null)
             {
-                SeriesTitle = "The amazing Spider-Man",
-                IssueNumber = 700,
-                DescriptionHtml = "<p>Final issue! Witness the final hours of Doctor Octopus life and his one, last, great act of revenge!" +
-                                    "Even if Spider-Man survives <strong>will Peter Parker?</strong></p>",
-                Artists = new Artist[]
-                {
-                    new Artist() { Name = "Dan Slott", Role = "Script"},
-                    new Artist() { Name = "Humberto Ramos", Role = "Pencils"},
-                    new Artist() { Name = "Victor Olazaba", Role = "Inks"},
-                    new Artist() { Name = "Edgar Delgado", Role = "Colors"},
-                    new Artist() {Name = "Chris Eliopoulos", Role = "Letters" }
-                }
-            };
-
-            //ViewBag.SeriesTitle = "The amzing Spider-Man";
-            //ViewBag.IssueNumber = 700;
-            //ViewBag.Description = "<p>Final issue! Witness the final hours of Doctor Octopus life and his one, last, great act of revenge!" +
-            //                  "Even if Spider-Man survives <strong>will Peter Parker?</strong></p>";
-            //ViewBag.Artists = new string[]
-            //{
-            //    "Script: Dan Slott",
-            //    "Pencils: Humberto Ramos",
-            //    "Inks: Victor Olazaba",
-            //    "Colors: Edgar Delgado",
-            //    "Letters: Chris Eliopoulos"
-            //};
-        
-            
+                return HttpNotFound();
+            }
+            var comicBook = _comicBookRepository.GetComicBook((int)id);
             return View(comicBook);   
         }
     }
